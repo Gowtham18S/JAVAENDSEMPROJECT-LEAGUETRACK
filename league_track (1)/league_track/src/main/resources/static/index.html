@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League Track - Sports Tournament Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- ================= SIDEBAR NAVIGATION ================= -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                        <path d="M4 22h16"/>
+                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h2>League Track</h2>
+                    <span class="badge">Tournament HQ</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" id="nav-dashboard" onclick="showPage('dashboard')">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="9" rx="1"/>
+                        <rect x="14" y="3" width="7" height="5" rx="1"/>
+                        <rect x="14" y="12" width="7" height="9" rx="1"/>
+                        <rect x="3" y="16" width="7" height="5" rx="1"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+
+                <button class="nav-btn" id="nav-teams" onclick="showPage('teams')">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span>Teams</span>
+                </button>
+
+                <button class="nav-btn" id="nav-matches" onclick="showPage('matches')">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    <span>Fixtures & Matches</span>
+                </button>
+
+                <button class="nav-btn" id="nav-standings" onclick="showPage('standings')">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    <span>Standings</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text">Backend Connected</span>
+                </div>
+                <div class="api-url">http://localhost:8080/api</div>
+            </div>
+        </aside>
+
+        <!-- ================= MAIN CONTENT AREA ================= -->
+        <main class="main-content">
+
+            <!-- HEADER BAR -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">League Track sports tournament management</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openTeamForm()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        <span>+ Add Team</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ================= PAGE 1: DASHBOARD ================= -->
+            <section id="dashboard" class="page active-page">
+                
+                <!-- 1. TOTAL TEAMS CARD -->
+                <div class="stats-grid mb-6">
+                    <div class="stat-card">
+                        <div class="stat-icon icon-blue">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">TOTAL TEAMS</span>
+                            <h2 class="stat-value" id="teamCount">0</h2>
+                            <span class="stat-sub">Registered in League</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. PARTICIPATING TEAMS LIST -->
+                <div class="content-card mb-6">
+                    <div class="card-header">
+                        <div>
+                            <h2>PARTICIPATING TEAMS</h2>
+                            <p class="card-subtitle">Currently registered tournament teams</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openTeamForm()">+ Add Team</button>
+                    </div>
+                    <div id="participatingTeamsList" class="participating-teams-list">
+                        <!-- Populated via JS: 1. ECE Warriors, 2. CSE Titans, etc. -->
+                    </div>
+                </div>
+
+                <!-- 3. POINTS TABLE -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>POINTS TABLE</h2>
+                            <p class="card-subtitle">Current league standings based on points & wins</p>
+                        </div>
+                        <button class="btn btn-ghost btn-sm" onclick="showPage('standings')">Full Standings →</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="th-rank">Position</th>
+                                    <th>Team</th>
+                                    <th class="text-center">Played</th>
+                                    <th class="text-center">Won</th>
+                                    <th class="text-center">Lost</th>
+                                    <th class="text-center th-highlight">Points</th>
+                                    <th class="text-center">Win Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="standingsTable">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= PAGE 2: TEAMS PAGE (DETAILED TEAM CARDS) ================= -->
+            <section id="teams" class="page">
+                <div class="section-toolbar">
+                    <div>
+                        <h2>Participating Teams</h2>
+                        <p class="card-subtitle">Detailed team statistics calculated from match records</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openTeamForm()">+ Add Team</button>
+                </div>
+
+                <!-- ATTRACTIVE TEAM CARDS GRID -->
+                <div id="teamsCardsGrid" class="teams-grid">
+                    <!-- Populated via JS with detailed stat cards -->
+                </div>
+            </section>
+
+            <!-- ================= PAGE 3: FIXTURES & MATCHES ================= -->
+            <section id="matches" class="page">
+
+                <!-- SECTION 1: REGISTERED TEAMS & GENERATE BUTTON -->
+                <div class="content-card mb-6">
+                    <div class="card-header">
+                        <div>
+                            <h2>Registered Teams</h2>
+                            <p class="card-subtitle">Current teams ready for round-robin tournament scheduling</p>
+                        </div>
+                        <div class="toolbar-actions">
+                            <button id="matchesGenerateBtn" class="btn btn-warning" onclick="generateRoundRobin()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21.5 2v6h-6M2.5 22v-6h6"/>
+                                    <path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8M2.5 16l1.2 1.8a10 10 0 0 0 18.8-4.3"/>
+                                </svg>
+                                <span>Generate Round Robin</span>
+                            </button>
+                            <button class="btn btn-secondary" onclick="openMatchForm()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                <span>+ Create Match</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="fixturesRegisteredTeamsList" class="participating-teams-list mb-4">
+                        <!-- Populated via JS: 1. ECE Warriors, 2. CSE Titans, etc. -->
+                    </div>
+                </div>
+
+                <!-- SECTION 2: ROUND ROBIN FIXTURES TABLE & ROUNDS -->
+                <div class="content-card mb-6" id="rrFixturesSection">
+                    <div class="card-header">
+                        <div>
+                            <h2>ROUND ROBIN FIXTURES</h2>
+                            <p class="card-subtitle" id="rrSummaryText">Total Teams: 0 | Total Matches: 0</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive mb-6">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">Match</th>
+                                    <th>Team 1</th>
+                                    <th>Team 2</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Result</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rrFixturesTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="roundsContainer" class="rounds-container">
+                        <!-- Populated via JS: ROUND 1, ROUND 2, etc. -->
+                    </div>
+                </div>
+
+                <!-- SECTION 3: UPCOMING MATCHES -->
+                <div class="content-card mb-6" id="upcomingMatchesSection">
+                    <div class="card-header">
+                        <div>
+                            <h2>UPCOMING MATCHES</h2>
+                            <p class="card-subtitle">Fixtures awaiting match scores</p>
+                        </div>
+                    </div>
+                    <div id="upcomingMatchesList" class="matches-grid">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- SECTION 4: COMPLETED MATCHES -->
+                <div class="content-card mb-6" id="completedMatchesSection">
+                    <div class="card-header">
+                        <div>
+                            <h2>COMPLETED MATCHES</h2>
+                            <p class="card-subtitle">Finished matches with recorded scores & winners</p>
+                        </div>
+                    </div>
+                    <div id="completedMatchesList" class="matches-grid">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- SECTION 5: MATCH SCHEDULE AND RESULTS (BOTTOM) -->
+                <div class="content-card" id="matchScheduleResultsSection">
+                    <div class="card-header">
+                        <div>
+                            <h2>MATCH SCHEDULE & RESULTS</h2>
+                            <p class="card-subtitle">Enter team scores and click Save Result to record match outcomes</p>
+                        </div>
+                    </div>
+                    <div id="matchResultsCardsList" class="match-results-cards-list">
+                        <!-- Populated via JS: Cards with score inputs + [Save Result] buttons -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= PAGE 4: STANDINGS ================= -->
+            <section id="standings" class="page">
+                <div class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>STANDINGS</h2>
+                            <p class="card-subtitle">Official league table and win rate statistics</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table standings-full-table">
+                            <thead>
+                                <tr>
+                                    <th class="th-rank">Position</th>
+                                    <th>Team</th>
+                                    <th class="text-center">Played</th>
+                                    <th class="text-center">Won</th>
+                                    <th class="text-center">Lost</th>
+                                    <th class="text-center th-highlight">Points</th>
+                                    <th class="text-center">Win Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fullStandingsTable">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- ================= MODAL: ADD TEAM ================= -->
+    <div id="teamModal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h3>Add New Team</h3>
+                    <p>Register a team in the League Track tournament</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeTeamForm()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="teamName">Team Name <span class="required">*</span></label>
+                    <input type="text" id="teamName" class="form-control" placeholder="e.g. ECE Warriors, CSE Titans" autocomplete="off" onkeydown="if(event.key==='Enter') addTeam()">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeTeamForm()">Cancel</button>
+                <button class="btn btn-primary" onclick="addTeam()">Save & Add Team</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: CREATE CUSTOM MATCH ================= -->
+    <div id="matchModal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h3>Create Match</h3>
+                    <p>Schedule or enter scores for a manual match</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeMatchForm()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label for="team1Select">Team 1 <span class="required">*</span></label>
+                        <select id="team1Select" class="form-control"></select>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="team1Score">Team 1 Score <span class="optional">(Optional)</span></label>
+                        <input type="number" id="team1Score" class="form-control" placeholder="Leave blank if unplayed" min="0">
+                    </div>
+                </div>
+
+                <div class="vs-divider">VS</div>
+
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label for="team2Select">Team 2 <span class="required">*</span></label>
+                        <select id="team2Select" class="form-control"></select>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="team2Score">Team 2 Score <span class="optional">(Optional)</span></label>
+                        <input type="number" id="team2Score" class="form-control" placeholder="Leave blank if unplayed" min="0">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeMatchForm()">Cancel</button>
+                <button class="btn btn-primary" onclick="createMatch()">Create Match</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: UPDATE MATCH RESULT ================= -->
+    <div id="updateScoreModal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h3>Update Match Result</h3>
+                    <p id="updateScoreSub">Enter scores to calculate winner and update standings</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeUpdateScoreModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="updateMatchId">
+                <div class="match-vs-box">
+                    <div class="team-vs-display">
+                        <span class="team-vs-name" id="updateTeam1Name">Team 1</span>
+                    </div>
+                    <div class="vs-badge">VS</div>
+                    <div class="team-vs-display">
+                        <span class="team-vs-name" id="updateTeam2Name">Team 2</span>
+                    </div>
+                </div>
+
+                <div class="form-row mt-4">
+                    <div class="form-group flex-1">
+                        <label id="lblTeam1Score" for="updateTeam1Score">Team 1 Score <span class="required">*</span></label>
+                        <input type="number" id="updateTeam1Score" class="form-control" placeholder="0" min="0" autofocus>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label id="lblTeam2Score" for="updateTeam2Score">Team 2 Score <span class="required">*</span></label>
+                        <input type="number" id="updateTeam2Score" class="form-control" placeholder="0" min="0">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeUpdateScoreModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitMatchResult()">Save Match Score</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TOAST NOTIFICATION CONTAINER ================= -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
